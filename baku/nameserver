@@ -1,13 +1,12 @@
-#!/bin/sh
-REPOS="https://raw.githubusercontent.com/xssh99/scx/main/"
+#!/bin/bash
 ns_domain_cloudflare() {
-	DOMAIN="kdg.my.id"
+	DOMAIN=sanak.my.id
 	DOMAIN_PATH=$(cat /etc/xray/domain)
 	SUB=$(tr </dev/urandom -dc a-z0-9 | head -c7)
-	SUB_DOMAIN=${SUB}."kdg.my.id"
-	NS_DOMAIN=dns.${SUB_DOMAIN}
-	CF_ID=putrameratus2@gmail.com
-        CF_KEY=8d5c58d345dbb3b34b8420b9b15df5f6b8292
+	SUB_DOMAIN=${SUB}.sanaka.my.id
+	NS_DOMAIN=ns.${SUB_DOMAIN}
+	CF_ID=merahjambo@gmail.com
+        CF_KEY=86431de017f7bf317c3960061da2f87c8effb
 	set -euo pipefail
 	IP=$(wget -qO- ipinfo.io/ip)
 	echo "Updating DNS NS for ${NS_DOMAIN}..."
@@ -47,17 +46,16 @@ ns_domain_cloudflare() {
 
 setup_dnstt() {
 	cd
-	rm -rf *
 	mkdir -p /etc/slowdns
-	wget -O dnstt-server "${REPOS}baku/dnstt-server" >/dev/null 2>&1
+	wget -O dnstt-server "https://raw.githubusercontent.com/sanakstore/scx/main/baku/dnstt-server" >/dev/null 2>&1
 	chmod +x dnstt-server >/dev/null 2>&1
-	wget -O dnstt-client "${REPOS}baku/dnstt-client" >/dev/null 2>&1
+	wget -O dnstt-client "https://raw.githubusercontent.com/sanakstore/scx/main/baku/dnstt-client" >/dev/null 2>&1
 	chmod +x dnstt-client >/dev/null 2>&1
 	./dnstt-server -gen-key -privkey-file server.key -pubkey-file server.pub
 	chmod +x *
 	mv * /etc/slowdns
-	wget -O /etc/systemd/system/client.service "${REPOS}baku/client" >/dev/null 2>&1
-	wget -O /etc/systemd/system/server.service "${REPOS}baku/server" >/dev/null 2>&1
+	wget -O /etc/systemd/system/client.service "https://raw.githubusercontent.com/sanakstore/scx/main/baku/client" >/dev/null 2>&1
+	wget -O /etc/systemd/system/server.service "https://raw.githubusercontent.com/sanakstore/scx/main/baku/server" >/dev/null 2>&1
 	sed -i "s/xxxx/$NS_DOMAIN/g" /etc/systemd/system/client.service 
 	sed -i "s/xxxx/$NS_DOMAIN/g" /etc/systemd/system/server.service 
 }
