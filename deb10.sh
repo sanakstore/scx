@@ -245,7 +245,7 @@ else
 fi
 }
 
-# JULAK BANTUR
+# SANAK STORE
 clear
 function nginx_install() {
     # // Checking System
@@ -740,9 +740,9 @@ account default
 host smtp.gmail.com
 port 587
 auth on
-user oceantestdigital@gmail.com
-from oceantestdigital@gmail.com
-password jokerman77 
+user backupsmtp93@gmail.com
+from backupsmtp93@gmail.com
+password sdallofkbpuhbtoa
 logfile ~/.msmtp.log
 EOF
 chown -R www-data:www-data /etc/msmtprc
@@ -1028,5 +1028,5 @@ secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname $username
 echo -e "${green} Successfull Installed"
 echo ""
-read -p "$( echo -e "Press ${YELLOW}[ ${NC}${YELLOW}Enter${NC} ${YELLOW}]${NC} For Reboot") "
+read -p "$( echo -e "Press ${YELLOW}[ ${NC}${BLUE}Enter${NC} ${YELLOW}]${NC} For Reboot") "
 reboot
