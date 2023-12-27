@@ -6,7 +6,7 @@ TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="
 <code>────────────────────</code>
-<b>⚠️ NOTIF MULTI LOGIN SSH SC JB-02 ⚠️</b>
+<b>⚠️ NOTIF MULTI LOGIN SSH ⚠️</b>
 <code>────────────────────</code>
 <code>Username  : </code><code>$user</code>
 <code>Limit Ip    : </code><code>$iplimit</code>
