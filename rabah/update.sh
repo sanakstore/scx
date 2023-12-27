@@ -1,12 +1,12 @@
 #!/bin/bash
 # //====================================================
 # //	System Request:Debian 9+/Ubuntu 18.04+/20+
-# //	Author:	Julak Bantur
+# //	Author:	Sanak Store
 # //	Dscription: Xray MultiPort
-# //	email: putrameratus2@gmail.com
-# //  telegram: https://t.me/Cibut2d
+# //	email: jambanbkn@gmail.com
+# //  telegram: https://t.me/Baung2012
 # //====================================================
-# // font color configuration | JULAK BANTUR AUTOSCRIPT
+# // font color configuration | SANAK STORE AUTOSCRIPT
 ###########- COLOR CODE -##############
 colornow=$(cat /etc/julak/theme/color.conf)
 VC="\e[0m"
@@ -61,7 +61,7 @@ fun_bar() {
     tput cnorm
 }
 res1() {
-    wget https://sc2.kuhing.my.id/rabah/menu.zip
+    wget https://raw.githubusercontent.com/sanakstore/scx/main/rabah/menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
@@ -72,7 +72,7 @@ res1() {
 netfilter-persistent
 clear
 echo -e "${z}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e " ${COLOR1}         UPDATE SCRIPT JULAK BANTUR       ${NC}"
+echo -e " ${COLOR1}         UPDATE SCRIPT SANAK STORE        ${NC}"
 echo -e "${z}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
 echo -e "  ${COLOR1} update script service${NC}"
