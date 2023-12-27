@@ -21,8 +21,8 @@ green='\e[0;32m'
 TIME=$(date '+%d %b %Y')
 ipsaya=$(wget -qO- ipinfo.io/ip)
 TIMES="10"
-CHATID="2118266757"
-KEY="6561892159:AAEfW_wh32WA3KzJDVrvFDDbtazjcmA2Cc4"
+CHATID="-1002117725897"
+KEY="6123951004:AAFMeqbK8n2HEVyCnlUKlvnFgpCpt86wbaA"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 # ===================
 clear
@@ -62,8 +62,8 @@ checking_sc() {
     echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
     echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
     echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/Cibut2d"
-    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281250851741"
+    echo -e "      \033[0;36mTelegram${NC} t.me/Baung2012"
+    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6285754292950"
     echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
     exit
   fi
@@ -156,7 +156,7 @@ fi
 echo -e "\e[32mloading...\e[0m"
 clear
 # julak    
-    julak="https://sc2.kuhing.my.id/"
+    julak="https://raw.githubusercontent.com/sanakstore/scx/main/"
 
 ####
 start=$(date +%s)
