@@ -199,7 +199,8 @@ print_install "BUAT DIREKTORI XRAY"
     chmod +x /var/log/xray
     touch /var/log/xray/access.log
     touch /var/log/xray/error.log
-    mkdir -p /var/lib/julak >/dev/null 2>&1
+    mkdir -p /var/lib/sanakstore >/dev/null 2>&1
+    chmod +x /var/lib/sanakstore
     # // Ram Information
     while IFS=":" read -r a b; do
     case $a in
