@@ -1,0 +1,166 @@
+#!/bin/bash
+# //====================================================
+# //	System Request:Debian 9+/Ubuntu 18.04+/20+
+# //	Author:	sanakstore
+# //	Dscription: Xray Menu Management
+# //	email:
+# //  telegram: https://t.me/Baung2012
+# //====================================================
+# // font color configuration | SANAK STORE AUTOSCRIPT get-backres
+clear
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+GREEN="\e[92;1m"
+BLUE="\033[36m"
+RED='\033[0;31m'
+NC='\033[0m'
+# ==========================================
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+clear
+IP=$(curl -sS ipv4.icanhazip.com)
+domain=$(cat /etc/xray/domain)
+date=$(date +"%Y-%m-%d")
+clear
+function backbot() {
+    Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
+    Info="${Green_font_prefix}[ON]${Font_color_suffix}"
+    Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
+    cek=$(grep -c -E "^# Autobackup" /etc/cron.d/autobckp)
+    if [[ "$cek" = "1" ]]; then
+        sts="${Info}"
+    else
+        sts="${Error}"
+    fi
+    clear
+    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+    echo -e "\e[42m           Autobackup VPS Server          \E[0m"
+    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+    echo -e "Status Autobackup : $sts        "
+    echo -e ""
+    echo -e "[1]  Autobackup After 6 Hour"
+    echo -e "[2]  Autobackup After 12 Hour"
+    echo -e "[3]  Autobackup After 24 Hour"
+    echo -e "[4]  Turn Off Autobackup"
+    echo ""
+    echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+    echo -e ""
+    until [[ $Autobackup =~ ^[1-4]+$ ]]; do
+        read -p "Select From Options [1-4 or x] :  " Autobackup
+    done
+    case $Autobackup in
+    1)
+        echo -e ""
+        sleep 1
+        clear
+        echo >/etc/cron.d/autobckp
+        echo "# Autobackup" >/etc/cron.d/autobckp
+        echo "0 */6 * * *  root /usr/bin/autobckp" >>/etc/cron.d/autobckp
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        echo -e ""
+        echo -e "      Autobackup Every     : 6 Hour"
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        service cron restart >/dev/null 2>&1
+        service cron reload >/dev/null 2>&1
+        ;;
+    2)
+        echo -e ""
+        sleep 1
+        clear
+        echo >/etc/cron.d/autobckp
+        echo "# Autobackup" >/etc/cron.d/autobckp
+        echo "0 */12 * * *  root /usr/bin/autobckp" >>/etc/cron.d/autobckp
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        echo -e ""
+        echo -e "      Autobackup Every     : 12 Hour"
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        service cron restart >/dev/null 2>&1
+        service cron reload >/dev/null 2>&1
+        ;;
+    3)
+        echo -e ""
+        sleep 1
+        clear
+        echo >/etc/cron.d/autobckp
+        echo "# Autobackup" >/etc/cron.d/autobckp
+        echo "0 */24 * * *  root /usr/bin/autobckp" >>/etc/cron.d/autobckp
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        echo -e ""
+        echo -e "      Autobackup Every     : 24 Hour"
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        service cron restart >/dev/null 2>&1
+        service cron reload >/dev/null 2>&1
+        ;;
+    4)
+        clear
+        rm /etc/cron.d/autobckp
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        echo -e ""
+        echo -e "      Autobackup Turned Off  "
+        echo -e ""
+        echo -e "\033[1;93m─────────────────────────────────────────\033[0m"
+        service cron restart >/dev/null 2>&1
+        service cron reload >/dev/null 2>&1
+        ;;
+    *)
+        menu
+        ;;
+    esac
+read -n 1 -s -r -p "Press any key to back on menu"
+menu
+function autobckp() {
+rm -rf /root/backup
+mkdir /root/backup
+cp /etc/passwd backup/
+cp /etc/group backup/
+cp /etc/shadow backup/
+cp /etc/gshadow backup/
+cp /etc/crontab backup/
+cp -r /var/lib/sanakstore/ backup/sanak 
+cp -r /etc/xray/config.json backup/
+cp -r /var/www/html/ backup/html
+zip -r $IP-$date.zip backup > /dev/null 2>&1
+rclone copy /root/$IP-$date.zip dr:backup/
+url=$(rclone link dr:backup/$IP-$date.zip)
+id=(`echo $url | grep '^https' | cut -d'=' -f2`)
+link="https://drive.google.com/u/4/uc?id=${id}&export=download"
+rm -rf *
+echo -e "
+Detail Backup
+==================================
+IP VPS        : $IP
+Link Backup   : $link
+Tanggal       : $date
+==================================
+" | mail -s "Backup Data" $email
+rm -rf /root/backup
+rm -r /root/$IP-$date.zip
+clear
+CHATID="$CHATID"
+KEY="$KEY"
+TIME="$TIME"
+URL="$URL"
+TEXT="
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>   ⚠️BACKUP NOTIF⚠️</b>
+<b>     Detail Backup VPS</b>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>IP VPS  :</b> <code>${IP} </code>
+<b>DOMAIN  :</b> <code>${domain}</code>
+<b>Tanggal : $date</b>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>Link Backup   :</b> $link
+<code>◇━━━━━━━━━━━━━━◇</code>
+<code>Silahkan copy Link dan restore di VPS baru</code>
+<code>BY BOT : @SANAKSTORE</code>
+"
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
