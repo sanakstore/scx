@@ -1,11 +1,11 @@
 #!/bin/bash
 MYIP=$(wget -qO- icanhazip.com);
 apt install jq curl -y
-read -p "Masukan Domain (contoh : memek7)" domen
-DOMAIN=sanak.my.id
+read -p "Masukan Domain (contoh : memek)" domen
+DOMAIN=sanakstore.my.id
 sub=${domen}
 #(</dev/urandom tr -dc a-z0-9 | head -c5)
-dns=${sub}.sanak.my.id
+dns=${sub}.sanakstore.my.id
 CF_ID=merahjambo@gmail.com
 CF_KEY=86431de017f7bf317c3960061da2f87c8effb
 set -euo pipefail
