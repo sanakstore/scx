@@ -380,14 +380,14 @@ rm -rf /etc/vmess/.vmess.db
     mkdir -p /usr/bin/xray/
     mkdir -p /var/log/xray/
     mkdir -p /var/www/html
-    mkdir -p /etc/julak/limit/vmess/ip
-    mkdir -p /etc/julak/limit/vless/ip
-    mkdir -p /etc/julak/limit/trojan/ip
-    mkdir -p /etc/julak/limit/ssh/ip
-    mkdir -p /etc/limit/vmess
-    mkdir -p /etc/limit/vless
-    mkdir -p /etc/limit/trojan
-    mkdir -p /etc/limit/ssh
+    touch -p /etc/vmess/ip
+    touch -p /etc/vless/ip
+    touch -p /etc/trojan/ip
+    touch -p /etc/ssh/ip
+    touch -p /etc/vmess/Qouta
+    touch -p /etc/vless/Qouta
+    touch -p /etc/trojan/Qouta
+    touch -p /etc/ssh/Qouta
     chmod +x /var/log/xray
     touch /etc/xray/domain
     touch /var/log/xray/access.log
