@@ -1,13 +1,49 @@
 #!/bin/bash
 
-function send_log(){
+function send_logvms(){
 TIMES="10"
 CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="
 <code>────────────────────</code>
-<b>⚠️NOTIF MULTILOGIN ⚠️</b>
+<b>⚠️NOTIF MULTILOGIN VMESS⚠️</b>
+<code>────────────────────</code>
+<code>Username    : </code><code>$user</code>
+<code>Login Ip    : </code><code>$cekcek</code>
+<code>Limit Ip    : </code><code>$iplimit</code>
+<code>────────────────────</code>
+<b>⚠️AUTO REMOVE MULTILOGIN⚠️</b>
+<code>────────────────────</code>
+"
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+function send_logvls(){
+TIMES="10"
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+TEXT="
+<code>────────────────────</code>
+<b>⚠️NOTIF MULTILOGIN VLESS⚠️</b>
+<code>────────────────────</code>
+<code>Username    : </code><code>$user</code>
+<code>Login Ip    : </code><code>$cekcek</code>
+<code>Limit Ip    : </code><code>$iplimit</code>
+<code>────────────────────</code>
+<b>⚠️AUTO REMOVE MULTILOGIN⚠️</b>
+<code>────────────────────</code>
+"
+curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+function send_logtrg(){
+TIMES="10"
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+URL="https://api.telegram.org/bot$KEY/sendMessage"
+TEXT="
+<code>────────────────────</code>
+<b>⚠️NOTIF MULTILOGIN TROJAN⚠️</b>
 <code>────────────────────</code>
 <code>Username    : </code><code>$user</code>
 <code>Login Ip    : </code><code>$cekcek</code>
@@ -22,11 +58,11 @@ function vmip(){
 #LIMITVMESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/julak/limit/vmess/ip`);
+data=( `ls /etc/vmess/ip`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/julak/limit/vmess/ip/$user)
+        iplimit=$(cat /etc/vmess/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -36,8 +72,9 @@ data=( `ls /etc/julak/limit/vmess/ip`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/julak/limit/vmess/ip/$user
-                  send_log
+                  rm -rf /etc/vmess/ip/$user
+                  rm -rf /etc/vmess/Qouta/$user
+                  send_logvms
                 else
             echo ""
         fi
@@ -48,11 +85,11 @@ function vlip(){
 #LIMITVLESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/julak/limit/vless/ip`);
+data=( `ls /etc/vless/ip`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/julak/limit/vless/ip/$user)
+        iplimit=$(cat /etc/vless/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -62,8 +99,9 @@ data=( `ls /etc/julak/limit/vless/ip`);
                   sed -i "/^### $user $exp/d" /etc/vless/.vless.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvless.txt | wc -l)
-                  rm -rf /etc/julak/limit/vless/ip/$user
-                  send_log
+                  rm -rf /etc/vless/ip/$user
+                  rm -rf /etc/vless/Qouta/$user
+                  send_logvls
                 else
             echo ""
         fi
@@ -74,11 +112,11 @@ function trip(){
 #LIMITIPTROJAN
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/julak/limit/trojan/ip`);
+data=( `ls /etc/trojan/ip`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/julak/limit/trojan/ip/$user)
+        iplimit=$(cat /etc/trojan/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -88,8 +126,9 @@ data=( `ls /etc/julak/limit/trojan/ip`);
                   sed -i "/^### $user $exp/d" /etc/trojan/.trojan.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/iptrojan.txt | wc -l)
-                  rm -rf /etc/julak/limit/trojan/ip/$user
-                  send_log
+                  rm -rf /etc/trojan/ip/$user
+                  rm -rf /etc/trojan/Qouta/$user
+                  send_logtrg
                 else
             echo ""
         fi
