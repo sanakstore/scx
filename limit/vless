@@ -60,37 +60,37 @@ function con() {
             fi
      done
 # Check ur Account
+
 for user in ${data[@]}
-  do
-    if [ -e /etc/vless/${user}Qouta ]; then
-      checkLimit=$(cat /etc/vless/${user}Qouta);
-      if [[ ${#checkLimit} -gt 1 ]]; then
-      if [ -e /etc/vless/${user} ]; then
-      Usage=$(cat /etc/vless/${user});
-      if [[ ${Usage} -gt ${checkLimit} ]]; then
-      total=$(con ${Usage})
-      total2=$(con ${checkLimit})
-      exp=$(grep -w "^#& $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-      sed -i "/^#& $user $exp/,/^},{/d" /etc/xray/config.json
-      sed -i "/^#& $user $exp/d" /etc/vless/.vless.db
-      send-log
-      rm -f /etc/funny/limit/vless/ip/$user
-	  rm -f /etc/vless/$user
-	  rm -f /etc/vless/$user
-	  rm -f /etc/vless/quota/$user
-	  rm -f /var/www/html/vless-$user.txt
-      systemctl restart xray >> /dev/null 2>&1
-      else
-      echo ""
+do
+   if [ -e /etc/vless/${user}Qouta ]; then
+     cekdulu=$(cat /etc/vless/${user}Qouta);
+      if [[ ${#cekdulu} -gt 1 ]]; then
+          if [ -e /etc/limit/vless/${user}limit ]; then
+             pakai=$(cat /etc/vless/${user}limit);
+               if [[ ${pakai} -gt ${cekdulu} ]]; then
+                  exp=$(grep -w "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+                  sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+                  sed -i "/^### $user $exp/d" /etc/vless/.vless.db
+                  systemctl restart xray >> /dev/null 2>&1
+                  bol=$(cat /etc/vless/${user}limit);
+                  total=$(con ${bol})
+                  send-log
+                  rm -rf /etc/vless/${user}
+                  rm -rf /etc/vless/${user}limit
+                  rm -rf /etc/vless/${user}Qouta
+                  rm -rf /etc/vless/${user}ip
+              else
+               echo ""
+          fi
+           else
+            echo ""
+        fi
+         else
+          echo ""
       fi
-      else
-      echo ""
-      fi
-      else
-      echo ""
-      fi
-      else
-      echo ""
+       else
+        echo ""
     fi
   done
 done
