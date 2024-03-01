@@ -58,11 +58,11 @@ function vmip(){
 #LIMITVMESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/vmess/ip`);
+data=( `ls /etc/vmess`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/vmess/ip/$user)
+        iplimit=$(cat /etc/vmess/${user}ip)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -72,8 +72,8 @@ data=( `ls /etc/vmess/ip`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/vmess/ip/$user
-                  rm -rf /etc/vmess/Qouta/$user
+                  rm -rf /etc/vmess/${user}ip
+                  rm -rf /etc/vmess/${user}Qouta
                   send_logvms
                 else
             echo ""
@@ -85,11 +85,11 @@ function vlip(){
 #LIMITVLESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/vless/ip`);
+data=( `ls /etc/vless`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/vless/ip/$user)
+        iplimit=$(cat /etc/vless/${user}ip)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -99,8 +99,8 @@ data=( `ls /etc/vless/ip`);
                   sed -i "/^### $user $exp/d" /etc/vless/.vless.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvless.txt | wc -l)
-                  rm -rf /etc/vless/ip/$user
-                  rm -rf /etc/vless/Qouta/$user
+                  rm -rf /etc/vless/${user}ip
+                  rm -rf /etc/vless/${user}Qouta
                   send_logvls
                 else
             echo ""
@@ -116,7 +116,7 @@ data=( `ls /etc/trojan/ip`);
 #ASU
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/trojan/ip/$user)
+        iplimit=$(cat /etc/trojan/${user}ip)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -126,8 +126,8 @@ data=( `ls /etc/trojan/ip`);
                   sed -i "/^### $user $exp/d" /etc/trojan/.trojan.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/iptrojan.txt | wc -l)
-                  rm -rf /etc/trojan/ip/$user
-                  rm -rf /etc/trojan/Qouta/$user
+                  rm -rf /etc/trojan/${user}ip
+                  rm -rf /etc/trojan/${user}Qouta
                   send_logtrg
                 else
             echo ""
