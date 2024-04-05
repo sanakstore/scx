@@ -58,7 +58,7 @@ function vmip(){
 #LIMITVMESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/vmess`);
+data=( `cat /etc/xray/config.json | grep '###' | cut -d ' ' -f 2 | sort | uniq`);
 #ASU
     for user in "${data[@]}"
     do
@@ -72,7 +72,7 @@ data=( `ls /etc/vmess`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/julak/limit/vmess/ip/${user}ip
+                  rm -rf /etc/vmess/${user}ip
                   send_logvms
                 else
             echo ""
@@ -84,7 +84,7 @@ function vlip(){
 #LIMITVLESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/vless`);
+data=( `cat /etc/xray/config.json | grep '###' | cut -d ' ' -f 2 | sort | uniq`);
 #ASU
     for user in "${data[@]}"
     do
@@ -110,7 +110,7 @@ function trip(){
 #LIMITIPTROJAN
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/trojan`);
+data=( `cat /etc/xray/config.json | grep '###' | cut -d ' ' -f 2 | sort | uniq`);
 #ASU
     for user in "${data[@]}"
     do
