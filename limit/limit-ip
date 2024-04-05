@@ -72,8 +72,7 @@ data=( `ls /etc/vmess`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/vmess/${user}ip
-                  rm -rf /etc/vmess/${user}Qouta
+                  rm -rf /etc/julak/limit/vmess/ip/${user}ip
                   send_logvms
                 else
             echo ""
@@ -100,7 +99,6 @@ data=( `ls /etc/vless`);
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvless.txt | wc -l)
                   rm -rf /etc/vless/${user}ip
-                  rm -rf /etc/vless/${user}Qouta
                   send_logvls
                 else
             echo ""
@@ -112,7 +110,7 @@ function trip(){
 #LIMITIPTROJAN
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/trojan/ip`);
+data=( `ls /etc/trojan`);
 #ASU
     for user in "${data[@]}"
     do
@@ -127,7 +125,6 @@ data=( `ls /etc/trojan/ip`);
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/iptrojan.txt | wc -l)
                   rm -rf /etc/trojan/${user}ip
-                  rm -rf /etc/trojan/${user}Qouta
                   send_logtrg
                 else
             echo ""
